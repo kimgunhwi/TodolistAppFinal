@@ -28,6 +28,14 @@ public class TodoMain {
 				TodoUtil.deleteItem(l);
 				break;
 				
+			case "del_all":
+				TodoUtil.deleteItemAll(l);
+				break;
+			
+			case "del_comp":
+				TodoUtil.deleteItemCompleted(l);
+				break;
+				
 			case "edit":
 				TodoUtil.updateItem(l);
 				break;
@@ -59,9 +67,19 @@ public class TodoMain {
 				TodoUtil.compList(l, index);
 				break;
 			
+			case "comp_many":
+				String indexes = sc.next().trim();
+				TodoUtil.compListMany(l, indexes);
+				break;
+			
 			case "comp_cancel":
 				int indexCancel = sc.nextInt();
 				TodoUtil.compListCancel(l, indexCancel);
+				break;
+				
+			case "comp_cancel_many":
+				String indexes2 = sc.next().trim();
+				TodoUtil.compListCancelMany(l, indexes2);
 				break;
 
 			case "ls_name_asc":

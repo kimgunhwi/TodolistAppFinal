@@ -64,6 +64,24 @@ public class TodoUtil {
 		if(l.deleteItem(index)>0)
 			System.out.println("삭제되었습니다.\n");
 	}
+	
+	public static void deleteItemAll(TodoList l) {
+		for(TodoItem item : l.getList()) {
+			int index = item.getId();
+			l.deleteItem(index);
+		}
+		System.out.println("모든 항목이 삭제되었습니다.\n");
+	}
+	
+	public static void deleteItemCompleted(TodoList l) {
+		for(TodoItem item : l.getList()) {
+			int index = item.getId();
+			int is_completed = item.getIs_completed();
+			if(is_completed==1)
+				l.deleteItem(index);
+		}
+		System.out.println("완료된 항목들을 삭제했습니다.\n");
+	}
 
 
 	public static void updateItem(TodoList l) {
@@ -185,6 +203,68 @@ public class TodoUtil {
 		TodoItem t = new TodoItem(index, title, category, desc, day, due_date, current_date, 1, importance);
 		if(l.updateItem(t)>0)
 			System.out.println("완료 체크하였습니다.\n");
+	}
+	
+	public static void compListMany(TodoList l, String indexes) {
+		String []tokens=indexes.split(",");
+		
+		for(int i=0;i<tokens.length;i++){
+			int index = Integer.parseInt(tokens[i]);
+			int importance=0;
+			String title="";
+			String category="";
+			String desc="";
+			String day="";
+			String due_date="";
+			String current_date="";
+			for(TodoItem item : l.getList()) {
+				if(item.getId()==index) {
+					title = item.getTitle();
+					category = item.getCategory();
+					desc = item.getDesc();
+					day = item.getDay();
+					due_date = item.getDue_date();
+					current_date = item.getCurrent_date();
+					importance=item.getImportance();
+				}
+			}
+			if(!title.equals("")) {
+				TodoItem t = new TodoItem(index, title, category, desc, day, due_date, current_date, 1, importance);
+				l.updateItem(t);
+			}
+		}
+		System.out.println("전부 완료 체크하였습니다.\n");
+	}
+	
+	public static void compListCancelMany(TodoList l, String indexes) {
+		String []tokens=indexes.split(",");
+		
+		for(int i=0;i<tokens.length;i++){
+			int index = Integer.parseInt(tokens[i]);
+			int importance=0;
+			String title="";
+			String category="";
+			String desc="";
+			String day="";
+			String due_date="";
+			String current_date="";
+			for(TodoItem item : l.getList()) {
+				if(item.getId()==index) {
+					title = item.getTitle();
+					category = item.getCategory();
+					desc = item.getDesc();
+					day = item.getDay();
+					due_date = item.getDue_date();
+					current_date = item.getCurrent_date();
+					importance=item.getImportance();
+				}
+			}
+			if(!title.equals("")) {
+				TodoItem t = new TodoItem(index, title, category, desc, day, due_date, current_date, 0, importance);
+				l.updateItem(t);
+			}
+		}
+		System.out.println("전부 완료체크 취소하였습니다.\n");
 	}
 	
 	public static void compListCancel(TodoList l, int index) {
